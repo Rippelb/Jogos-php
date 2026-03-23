@@ -12,9 +12,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $erro = 'Preencha todos os campos';
     } else {
         // Tudo certo - gravar os dados
+        $ext = pathinfo($_FILES['capa']['name'], PATHINFO_EXTENSION);
+        $capa = uniqid().'.'.$ext;
         
-        // Importar PDO
+        move_uploaded_file($_FILES['capa']['tmp_name'], "img/{$capa}");
+
+        require('carregar_pdo.php');
+        $dados = $pdo->prepare('INSERT INTO jogos (nome, estilo, capa) VALUES (?, ?, ?)');
         
+        $dados->bindParam(1, $nome);
+        $dados->bindParam(2, $estilo);
+        $dados->bindParam(3, $capa);
+
+        $dados->execute();
+
+        header('location:jogos.php');
+        die;
     }
 }
 
