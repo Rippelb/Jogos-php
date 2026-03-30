@@ -1,0 +1,20 @@
+
+{# jogos_excluir.html isto é um comentário #}
+{% extends "_base.html" %}
+
+{% block conteudo %}
+
+<h2>Excluir Jogo</h2>
+<h3>Você está excluindo o jogo {{ jogo.nome }}</h3>
+<img src="https://media1.tenor.com/m/zNLZs1zKpHgAAAAC/delete-it.gif" alt="">
+<br>
+Tem certeza que deseja fazer isso?
+
+<div>
+    <form method="post" action="jogos_excluir.php">
+        <input type="hidden" name="id" value="{{ jogo.id }}">
+        <input type="submit" value="Apagar para sempre" style="border: solid 1px turquoise; color: green; background-color: red; border-radius: 30px; width: 700px;">
+    </form>
+    <a href="jogos.php" style="border: solid 1px black; background-color: beige; border-radius: 20px; width: 600px;">🤷‍♀️ Não! eu me arrependi. Não apague</a>
+</div>
+{% endblock conteudo %}
