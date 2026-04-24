@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lancamento = $_POST['lancamento'] ?? false;
 
     // Verifica erro
-    if (!$nome || !$estilo) {
+    if (!$nome || !$estilo || !$lancamento) {
         $erro = 'Preencha todos os campos';
     } else {
         // Tudo certo - gravar os dados
@@ -24,8 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $dados->bindParam(1, $nome);
         $dados->bindParam(2, $estilo);
         $dados->bindParam(3, $capa);
-        $dados->bindParam(3, $lancamento);
-
+        $dados->bindParam(4, $lancamento);
         $dados->execute();
 
         header('location:jogos.php');
