@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Preparar os dados para inserir no banco
     $nome = $_POST['nome'] ?? false;
     $estilo = $_POST['estilo'] ?? false;
+    $lancamento = $_POST['lancamento'] ?? false;
 
     // Verifica erro
     if (!$nome || !$estilo) {
@@ -18,11 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         move_uploaded_file($_FILES['capa']['tmp_name'], "img/{$capa}");
 
         require('carregar_pdo.php');
-        $dados = $pdo->prepare('INSERT INTO jogos (nome, estilo, capa) VALUES (?, ?, ?)');
+        $dados = $pdo->prepare('INSERT INTO jogos (nome, estilo, capa, lancamento) VALUES (?, ?, ?, ?)');
         
         $dados->bindParam(1, $nome);
         $dados->bindParam(2, $estilo);
         $dados->bindParam(3, $capa);
+        $dados->bindParam(3, $lancamento);
 
         $dados->execute();
 
